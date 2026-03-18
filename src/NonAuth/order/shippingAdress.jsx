@@ -9,11 +9,7 @@ export default function ShippingAddress() {
   const navigate = useNavigate();
   const location = useLocation();
   const { placeOrder, user } = useContext(Authcontext);
-
-  
   const buyNowProduct = location.state?.product || null;
-
-  
   const [itemsToCheckout, setItemsToCheckout] = useState(
     buyNowProduct ? [buyNowProduct] : user?.cart || []
   );

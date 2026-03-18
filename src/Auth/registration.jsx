@@ -156,15 +156,12 @@ export default function Registration() {
 
   return (
     <div className=" pt-20 relative min-h-screen overflow-hidden">
-      {/* Silk Background */}
       <div className="absolute inset-0 z-0">
         <Silk />
       </div>
 
-      {/* Soft glow */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-600/10 blur-3xl"></div>
 
-      {/* Glass Form */}
       <div className="relative z-10 min-h-screen flex justify-center items-center px-4">
         <div
           className="w-full max-w-md bg-white/10 backdrop-blur-2xl border border-white/20 

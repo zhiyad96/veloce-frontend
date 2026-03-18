@@ -5,19 +5,12 @@ import toast from "react-hot-toast";
 import { useLocation } from "react-router-dom";
 
 function Checkout() {
-
   const { handleCheckout } = useContext(Cartcontext);
-
-const location = useLocation();
-const total = location.state?.total || 0;
-const product_total = product ? product.price : 0;
-
-
+  const location = useLocation();
+  const total = location.state?.total || 0;
   const [selectedAddressId, setSelectedAddressId] = useState(null);
   const [addresses, setAddresses] = useState([]);
-
   const [showAddressForm, setShowAddressForm] = useState(false);
-
   const [addressForm, setAddressForm] = useState({
     full_name: "",
     phone_number: "",
@@ -25,10 +18,12 @@ const product_total = product ? product.price : 0;
     city: "",
     state: "",
     country: "",
-    postal_code: ""
+    postal_code: "",
   });
 
-  // load addresses
+
+
+         // ==============================address fetching =================================
   useEffect(() => {
     const fetchAddresses = async () => {
       try {
@@ -42,11 +37,11 @@ const product_total = product ? product.price : 0;
     fetchAddresses();
   }, []);
 
-  // add new address
+  
+      // ========================================== add address ================================
+
   const handleAddAddress = async () => {
-
     try {
-
       const { data } = await api.post("address/", addressForm);
 
       toast.success("Address added");
@@ -64,58 +59,60 @@ const product_total = product ? product.price : 0;
         city: "",
         state: "",
         country: "",
-        postal_code: ""
+        postal_code: "",
       });
-
     } catch (err) {
       console.log(err);
       toast.error("Failed to add address");
     }
-
   };
 
+
+
   return (
-
     <div className="min-h-screen bg-gray-50 flex justify-center items-center">
-
       <div className="lg:w-96">
-
         <div className="bg-white rounded-2xl shadow-sm p-6">
-
           <label className="block mb-2 font-semibold text-gray-600">
             Shipping Address
           </label>
-
           {showAddressForm && (
-
             <div className="border p-3 rounded mb-4 border-black">
-
               <input
                 placeholder="Full Name"
-                className="border border-black p-2 w-full mb-2"
+                className="border border-black p-2 w-full text-black mb-2"
                 value={addressForm.full_name}
                 onChange={(e) =>
                   setAddressForm({ ...addressForm, full_name: e.target.value })
                 }
               />
 
+
               <input
                 placeholder="Phone Number"
-                className="border border-black p-2 w-full mb-2"
+                className="border border-black p-2 w-full text-black mb-2"
                 value={addressForm.phone_number}
                 onChange={(e) =>
-                  setAddressForm({ ...addressForm, phone_number: e.target.value })
+                  setAddressForm({
+                    ...addressForm,
+                    phone_number: e.target.value,
+                  })
                 }
               />
+
 
               <input
                 placeholder="Address Line"
                 className="border border-black p-2 w-full mb-2"
                 value={addressForm.address_line_1}
                 onChange={(e) =>
-                  setAddressForm({ ...addressForm, address_line_1: e.target.value })
+                  setAddressForm({
+                    ...addressForm,
+                    address_line_1: e.target.value,
+                  })
                 }
               />
+
 
               <input
                 placeholder="City"
@@ -126,6 +123,7 @@ const product_total = product ? product.price : 0;
                 }
               />
 
+
               <input
                 placeholder="State"
                 className="border border-black p-2 w-full mb-2"
@@ -134,6 +132,7 @@ const product_total = product ? product.price : 0;
                   setAddressForm({ ...addressForm, state: e.target.value })
                 }
               />
+
 
               <input
                 placeholder="Country"
@@ -144,12 +143,16 @@ const product_total = product ? product.price : 0;
                 }
               />
 
+
               <input
                 placeholder="Postal Code"
                 className="border border-black p-2 w-full mb-2"
                 value={addressForm.postal_code}
                 onChange={(e) =>
-                  setAddressForm({ ...addressForm, postal_code: e.target.value })
+                  setAddressForm({
+                    ...addressForm,
+                    postal_code: e.target.value,
+                  })
                 }
               />
 
@@ -159,17 +162,14 @@ const product_total = product ? product.price : 0;
               >
                 Save Address
               </button>
-
             </div>
-
           )}
 
-          {/* Address select */}
 
           <select
             value={selectedAddressId || ""}
             onChange={(e) => setSelectedAddressId(e.target.value)}
-            className="border border-black p-2 w-full rounded mb-3"
+            className="border border-black p-2 w-full text-black rounded mb-3"
           >
             <option value="">Select Address</option>
 
@@ -180,6 +180,7 @@ const product_total = product ? product.price : 0;
             ))}
           </select>
 
+
           <button
             onClick={() => setShowAddressForm(!showAddressForm)}
             className="text-gray-800 text-sm mb-4"
@@ -188,33 +189,29 @@ const product_total = product ? product.price : 0;
           </button>
 
           <div className="flex justify-between items-center mb-4">
-
             <span className="text-gray-600">Total</span>
 
             <span className="text-lg font-semibold text-gray-900">
               ${total.toFixed(2)}
             </span>
-
           </div>
 
           <button
             disabled={!selectedAddressId}
             onClick={() => handleCheckout(total, selectedAddressId)}
             className={`w-full py-3 rounded-lg font-semibold
-              ${!selectedAddressId
-                ? "bg-gray-300 cursor-not-allowed"
-                : "bg-gray-600 text-white"}
+              ${
+                !selectedAddressId
+                  ? "bg-gray-300 cursor-not-allowed"
+                  : "bg-gray-600 text-white"
+              }
             `}
           >
             Pay Now
           </button>
-
         </div>
-
       </div>
-
     </div>
-
   );
 }
 

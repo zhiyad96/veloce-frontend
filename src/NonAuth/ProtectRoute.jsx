@@ -2,47 +2,43 @@ import React, { useContext } from "react";
 import { Navigate } from "react-router-dom";
 import { Authcontext } from "../Context/Authcontext";
 
-/* 🔒 USER PROTECTED ROUTE (only normal users can access user-only pages) */
 export const ProtectedRoute = ({ children }) => {
   const { user, admin, loading } = useContext(Authcontext);
 
   if (loading) return <div>Loading...</div>;
 
-  if (admin) return <Navigate to="/dashboard" replace />; // block admin
-  if (!user) return <Navigate to="/login" replace />;     // block guests
+  if (admin) return <Navigate to="/dashboard" replace />; 
+  if (!user) return <Navigate to="/login" replace />;    
 
-  return children; // normal logged-in user
+  return children; 
 };
 
-/* 🌐 PUBLIC ROUTE (visible to everyone except logged-in users or admins, used for login/register) */
 export const PublicUserRoute = ({ children }) => {
   const { user, admin, loading } = useContext(Authcontext);
 
   if (loading) return <div>Loading...</div>;
 
-  if (admin) return <Navigate to="/dashboard" replace />; // block admin
-  if (user) return <Navigate to="/" replace />;           // block logged-in normal users
+  if (admin) return <Navigate to="/dashboard" replace />; 
+  if (user) return <Navigate to="/" replace />;           
 
-  return children; // guest
+  return children; 
 };
 
-/* 🌐 PUBLIC PAGE (visible to everyone except admins, used for Home, Product, About, etc.) */
 export const PublicNoAdmin = ({ children }) => {
   const { admin, loading } = useContext(Authcontext);
 
   if (loading) return <div>Loading...</div>;
 
-  if (admin) return <Navigate to="/dashboard" replace />; // block admin
+  if (admin) return <Navigate to="/dashboard" replace />; 
 
-  return children; // guests + normal users
+  return children; 
 };
 
-/* 🛠️ ADMIN PROTECTED ROUTE (only admins can access) */
 export const AdminProtectedRoute = ({ children }) => {
   const { admin, loading } = useContext(Authcontext);
 
   if (loading) return <div>Loading...</div>;
-  if (!admin) return <Navigate to="/login" replace />; // block non-admins
+  if (!admin) return <Navigate to="/login" replace />; 
 
-  return children; // admin
+  return children; 
 };

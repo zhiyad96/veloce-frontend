@@ -143,15 +143,12 @@ export default function Login() {
 
   return (
     <div className="relative min-h-screen overflow-hidden">
-      {/* Silk background */}
       <div className="absolute inset-0 z-0">
         <Silk speed={3} scale={2} color='#555555' noiseIntensity={1.2} rotation={0.2} />
       </div>
 
-      {/* Background glow */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-600/10 blur-3xl"></div>
 
-      {/* Glass login form */}
       <div className="relative z-10 min-h-screen flex justify-center items-center px-4">
         <div className="w-full max-w-md bg-white/10 backdrop-blur-2xl border border-white/20 
           shadow-[0_0_40px_rgba(255,255,255,0.2)] rounded-2xl p-8 
